@@ -1,18 +1,28 @@
 package com.example.demo.customer;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
 
 @Configuration
 public class CustomerConfiguration {
 
-//    @Bean
-    public CustomerService customerService() {
-        // setup and configure bean before creation
-        // https://docs.spring.io/spring-boot/docs/2.1.13.RELEASE/reference/html/howto-data-access.html#howto-configure-a-datasource
-        return new CustomerService(
-                new CustomerFakeRepository()
-        );
+    @Value("${app.useFakeCustomerRepo:false}")
+    private Boolean useFakeCustomerRepo;
+
+    @Bean
+    CommandLineRunner commandLineRunner() {
+        return args -> {
+            System.out.println("Command line runner hooray");
+        };
+    }
+
+    @Bean
+    CustomerRepo customerRepo() {
+        System.out.println("useFakeCustomerRepo = " + useFakeCustomerRepo);
+        return useFakeCustomerRepo ?
+                new CustomerFakeRepository() :
+                new CustomerRepository();
     }
 }
