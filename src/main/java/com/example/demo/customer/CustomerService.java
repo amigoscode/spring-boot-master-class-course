@@ -14,7 +14,7 @@ public class CustomerService {
 
     @Autowired
     public CustomerService(
-            @Qualifier("fake") CustomerRepo customerRepo) {
+            CustomerRepo customerRepo) {
         this.customerRepo = customerRepo;
     }
 
