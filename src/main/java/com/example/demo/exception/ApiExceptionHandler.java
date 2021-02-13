@@ -14,9 +14,6 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class ApiExceptionHandler {
 
-    private final static Logger LOGGER =
-            LoggerFactory.getLogger(ApiExceptionHandler.class);
-
     @ExceptionHandler(value = ApiRequestException.class)
     public ResponseEntity<Object> handleApiRequestException(
             ApiRequestException e
